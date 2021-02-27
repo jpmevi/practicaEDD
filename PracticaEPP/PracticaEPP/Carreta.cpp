@@ -11,3 +11,6 @@ int Carreta::getNumeroCarreta()
 {
     return numeroCarreta;
 }
+void Carreta::setNumeroCarreta(int numero) {
+    this->numeroCarreta = numero;
+}

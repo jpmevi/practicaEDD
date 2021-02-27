@@ -141,11 +141,13 @@
   <ItemGroup>
     <ClCompile Include="Caja.cpp" />
     <ClCompile Include="Carreta.cpp" />
+    <ClCompile Include="Pila.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Caja.h" />
     <ClInclude Include="Carreta.h" />
+    <ClInclude Include="Pila.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
