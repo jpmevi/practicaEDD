@@ -47,3 +47,10 @@ void Pila::mostrarCarretas() {
     }
     cout << "Numero de carreta: " << aux->getNumeroCarreta() << endl;
 }
+
+bool Pila::empty() {
+    if (carretaInicio == nullptr && carretaFinal == nullptr) {
+        return true;
+    }
+    return false;
+}

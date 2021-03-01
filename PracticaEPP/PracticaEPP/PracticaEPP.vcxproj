@@ -141,12 +141,18 @@
   <ItemGroup>
     <ClCompile Include="Caja.cpp" />
     <ClCompile Include="Carreta.cpp" />
+    <ClCompile Include="Cliente.cpp" />
+    <ClCompile Include="Cola.cpp" />
+    <ClCompile Include="ListaCircular.cpp" />
     <ClCompile Include="Pila.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Caja.h" />
     <ClInclude Include="Carreta.h" />
+    <ClInclude Include="Cliente.h" />
+    <ClInclude Include="Cola.h" />
+    <ClInclude Include="ListaCircular.h" />
     <ClInclude Include="Pila.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
