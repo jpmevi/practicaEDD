@@ -11,5 +11,6 @@ public:
     Carreta* pop();
     void mostrarCarretas();
     bool empty();
+    bool comprobarNumero(int);
 };
 

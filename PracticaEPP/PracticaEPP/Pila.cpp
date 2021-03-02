@@ -13,10 +13,12 @@ void Pila::push(Carreta* carreta) {
     if (carretaInicio == nullptr && carretaFinal == nullptr) {
         carretaFinal = carreta;
         carretaInicio = carreta;
+        cout << "Carreta ingresada con numero: " << carreta->getNumeroCarreta() << endl;
     }
     else {
         carreta->siguiente = carretaInicio;
         carretaInicio = carreta;
+        cout << "Carreta ingresada con numero: " << carreta->getNumeroCarreta() << endl;
     }
 }
 
@@ -51,6 +53,22 @@ void Pila::mostrarCarretas() {
 bool Pila::empty() {
     if (carretaInicio == nullptr && carretaFinal == nullptr) {
         return true;
+    }
+    return false;
+}
+
+bool Pila::comprobarNumero(int numero) {
+    Carreta* aux = carretaInicio;
+    while (aux != nullptr) {
+        if (aux->getNumeroCarreta() == numero) {
+            return true;
+        }
+        else
+        {
+            aux = aux->siguiente;
+
+        }
+
     }
     return false;
 }

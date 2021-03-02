@@ -10,5 +10,6 @@ public:
     void push(Cliente* cliente);
     Cliente* borrar(int id);
     int empty();
+    bool comprobarNumero(int);
 };
 

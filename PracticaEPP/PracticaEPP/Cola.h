@@ -10,5 +10,6 @@ public:
     Cliente* pop();
     void mostrarCola();
     bool empty();
+    bool comprobarNumero(int numero);
 };
 

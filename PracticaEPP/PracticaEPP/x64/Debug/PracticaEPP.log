@@ -1,2 +1,3 @@
-﻿  Source.cpp
+﻿  ListaCircular.cpp
+C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\ListaCircular.cpp(89): warning C4715: 'ListaCircular::borrar': no todas las rutas de acceso de control devuelven un valor
   PracticaEPP.vcxproj -> C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\x64\Debug\PracticaEPP.exe

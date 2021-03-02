@@ -145,6 +145,7 @@
     <ClCompile Include="Cola.cpp" />
     <ClCompile Include="ListaCircular.cpp" />
     <ClCompile Include="Pila.cpp" />
+    <ClCompile Include="Simulacion.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="Cola.h" />
     <ClInclude Include="ListaCircular.h" />
     <ClInclude Include="Pila.h" />
+    <ClInclude Include="Simulacion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

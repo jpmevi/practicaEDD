@@ -11,10 +11,12 @@ void Cola::push(Cliente* cliente) {
     if (objetoInicio == nullptr && objetoFinal == nullptr) {
         objetoInicio = cliente;
         objetoFinal = cliente;
+        cout << "Cliente ingresado con numero: "<<cliente->getNumeroCliente() << endl;
     }
     else {
         objetoFinal->siguiente = cliente;
         objetoFinal = cliente;
+        cout << "Cliente ingresado con numero: " << cliente->getNumeroCliente() << endl;
     }
 
 }
@@ -31,8 +33,24 @@ Cliente* Cola::pop() {
 }
 
 bool Cola::empty() {
-    if (objetoInicio == nullptr && objetoFinal == nullptr) {
+    if (objetoInicio == nullptr || objetoFinal == nullptr) {
         return true;
+    }
+    return false;
+}
+
+bool Cola::comprobarNumero(int numero) {
+    Cliente* aux = objetoInicio;
+    while (aux != nullptr) {
+        if (aux->getNumeroCliente() == numero) {
+            return true;
+        }
+        else
+        {
+            aux = aux->siguiente;
+            
+        }
+       
     }
     return false;
 }
