@@ -9,16 +9,25 @@
 #include "ListaCircular.h"
 #include "ListaDoble.h"
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctime>
+#include <thread>
+#include <Windows.h>
 using namespace std;
 
-void crearCliente(int cantClientes);
+void crearCliente(int cantClientes, int clientesTotales);
 void ingresarCarretas(int carretas);
 Carreta* sacarCarreta();
 void asignarCarreta(int cantcola);
 void asignarClientesComprando(int cantComprando, int cantClientes, int cantCarretas);
 void asignarClientesPagando(int cantPagando, int cantComprando, int cantClientes, int cantCarretas);
-void asignarCajas(int cantCajas, int cantClientes, int cantComprando,  int clientesPagos, int cantCarretas);
+void asignarCajas(int cantCajas);
+Caja* asignarClienteACaja();
 Cliente* sacarClienteDeCompras();
+bool guardarCarreta(Carreta* carreta);
+void atenderEnCaja(Caja* caja);
+void restarTiempo();
 Cola* cola = new Cola();
 Cola* colaPagos = new Cola();
 Pila* pila1 = new Pila();
@@ -28,23 +37,7 @@ ListaDoble* listaDoble = new ListaDoble();
 
 int main() {
     
-    /*ListaCircular* listacir= new ListaCircular();
-    Carreta* caarreta1=new Carreta(50);
-    Cliente *cliente1 =new Cliente(10,caarreta1);
-    Cliente* cliente2 = new Cliente(20,caarreta1);
-    Cliente* cliente3 = new Cliente(30,caarreta1);
-    Cliente* cliente5 = new Cliente(50,caarreta1);
-    
-    Pila* pilaCarreta=new Pila();
-    cola->push(cliente1);
-    cola->push(cliente2);
-    Cliente* cliente=cola->pop();
-    cola->push(cliente);
-    cout << cliente->getNumeroCliente()<<"     "<< cliente->getCarreta()->getNumeroCarreta() << endl;
-    listacir->push(cliente);
-    Cliente* clientecir=listacir->borrar(10);
-    cout << clientecir->getNumeroCliente() << "     " << clientecir->getCarreta()->getNumeroCarreta() << endl;*/
-    int clienteColaCarreta, carretas, clientesComprando,clientesColaPagos,cajas;
+    int clienteColaCarreta, carretas, clientesComprando, clientesColaPagos, cajas, contador = 1, clientesTotales;
     cout << "Cuantos clientes estan en la cola de carretas?" << endl;
     cin >> clienteColaCarreta;
     cout << "Cuantas carretas por pila?" << endl;
@@ -56,24 +49,53 @@ int main() {
     cout << "Cuantas cajas desea?" << endl;
     cin >> cajas;
     cout << "######### Paso " << 1 << " #########" << endl;
-    crearCliente(clienteColaCarreta);
+    clientesTotales = clienteColaCarreta;
     ingresarCarretas(carretas);
-    asignarClientesComprando(clientesComprando, clienteColaCarreta,carretas);
+    asignarCajas(cajas);
+   
+    asignarClientesComprando(clientesComprando, clienteColaCarreta, carretas);
     asignarClientesPagando(clientesColaPagos, clientesComprando, clienteColaCarreta, carretas);
-    asignarCajas(cajas, clienteColaCarreta, clientesComprando, clientesColaPagos, carretas);
-    asignarCarreta(clienteColaCarreta);
+    while (true) { 
+        crearCliente(clienteColaCarreta,clientesTotales);
+        asignarCarreta(clienteColaCarreta);
     Cliente* cliente1 = sacarClienteDeCompras();
+    if (cliente1 != nullptr) {
+        colaPagos->push(cliente1);
+        Caja* caja = asignarClienteACaja();
+        if (caja != nullptr) {
+            atenderEnCaja(caja);
+        }
+    }
+    else {
+        restarTiempo();
+        Caja* aux = listaDoble->cajaInicio;
+        bool flag = false;
+        while (aux != nullptr) {
+            if (!aux->getEstadoLibre()) {
+                flag = true;
+                break;
+            }
+            aux = aux->siguiente;
+        }
+        atenderEnCaja(aux);
+    }
+    cout << "Cuantos nuevos clientes entraran?" << endl;
+    cin >> clienteColaCarreta;
+    contador = contador + 1;
+    clientesTotales = clientesTotales + clienteColaCarreta;
+    cout << "######### Paso " << contador << " #########" << endl;
+    }
     _getch();
     return 0;
 }
 
 
 
-void crearCliente(int cantClientes) {
+void crearCliente(int cantClientes,int clientesTotales) {
     Cliente* cliente;
     for (int i = 0; i < cantClientes; i++)
     {
-        int random = (rand() % cantClientes) + 1;
+        int random = (rand() % cantClientes+clientesTotales) + 1+clientesTotales;
         if (cola->empty()) {
              cliente = new Cliente(random, nullptr);
         }
@@ -81,12 +103,12 @@ void crearCliente(int cantClientes) {
             
             while (cola->comprobarNumero(random))
             {
-                random = (rand() % cantClientes) + 1;
+                random = (rand() % cantClientes + clientesTotales) + 1+clientesTotales;
             }
              cliente = new Cliente(random, nullptr);
         }
         cola->push(cliente);
-        cout << "Cliente ingresado con numero: " << cliente->getNumeroCliente() << endl;
+        
     }
 }
 
@@ -202,32 +224,34 @@ void asignarClientesPagando(int cantPagando, int cantComprando, int cantClientes
         }
         else {
 
-            while (colaPagos->comprobarNumero(random))
-            {
                 random = (rand() % cantPagando) + 1 + cantClientes + cantComprando + i;
-            }
+
             cliente = new Cliente(random, carretaObj);
         }
         colaPagos->push(cliente);
         cout << "Cliente ingresado en la cola de pagos con #" << cliente->getNumeroCliente() << endl;
+        Caja* caja2 = asignarClienteACaja();
+        if (caja2 != nullptr) {
+            atenderEnCaja(caja2);
+        }
     }
 }
-void asignarCajas(int cantCajas,int cantClientes,int cantComprando,int clientesPagos,int cantCarretas) {
+void asignarCajas(int cantCajas) {
     Caja* caja;
     for (int i = 0; i < cantCajas; i++)
     {
-        int random = (rand() % 100) + 1;
+        int random = (rand() % cantCajas) + 1;
         int tiempo = (rand() % 5) + 1;
         if (listaDoble->empty()) {
-            caja = new Caja(random, tiempo, true, 0, 0);
+            caja = new Caja(random, tiempo,tiempo, true, 0, 0);
         }
         else {
 
             while (listaDoble->comprobarNumero(random))
             {
-                random = (rand() % 100) + 1;
+                random = (rand() % cantCajas) + 1;
             }
-            caja = new Caja(random, tiempo, true, 0,0);
+            caja = new Caja(random, tiempo,tiempo, true, 0,0);
         }
         listaDoble->push(caja);
     }
@@ -237,13 +261,89 @@ Cliente* sacarClienteDeCompras() {
     int totalClientes = listaCircular->totalElementos;
     srand((int)time(0));
     int random = (rand() % 100) + 1;
-    if (random <= totalClientes) {
-        Cliente* cliente = listaCircular->borrar(random);
-        return cliente;
+    if (listaCircular->comprobarNumero(random)) {
+
+            Cliente* cliente = listaCircular->borrar(random);
+            return cliente;
+      
+          
     }
     else {
-        cout << "No se hizo nada porque el numero random fue " << random << " y se esperaba un numero menos de " << totalClientes << endl;
+        cout << "El numero que salio no existe en la lista"<< endl;
+        return nullptr;
+    }
+    
+
+}
+
+Caja* asignarClienteACaja() {
+    restarTiempo();
+    Cliente* cliente = colaPagos->pop();
+    Caja* aux = listaDoble->cajaInicio;
+    bool flag = false;
+    while (aux != nullptr) {
+        if (aux->getEstadoLibre()) {
+            flag = true;
+            break;
+        }
+        aux = aux->siguiente;
+    }
+    if (flag) {
+        aux->setEstadoLibre(false);
+        aux->setCodigoCliente(cliente->getNumeroCliente());
+        aux->setCodigoCarreta(cliente->getCarreta()->getNumeroCarreta());
+        return aux;
+
+    }
+    else {
+        cout << "Todas las cajas estan ocupadas" << endl;
         return nullptr;
     }
 
+}
+
+void atenderEnCaja(Caja* caja) {
+
+   
+    if (caja!=nullptr) {
+        if (caja->getTiempoRestante() != 0) {
+            cout << "Cliente: " << caja->getCodigoCliente() << " esperando en la caja " << caja->getNumeroCaja() << "." << endl;
+        }
+        else {
+            Carreta* carreta = new Carreta(caja->getCodigoCarreta());
+            cout << "Cliente: " << caja->getCodigoCliente() << " atendido en caja " << caja->getNumeroCaja() << "." << endl;
+            caja->vaciarCaja();
+            guardarCarreta(carreta);
+        }
+    }
+    
+   
+}
+
+bool guardarCarreta(Carreta* carreta) {
+    srand((int)time(0));
+    int pila = (rand() % 2) + 1;
+    if (pila == 1) {
+        pila1->push(carreta);
+        cout << "Carreta " << carreta->getNumeroCarreta() << " guardada en la pila 1" << endl;
+    }
+    else {
+        pila2->push(carreta);
+        cout << "Carreta " << carreta->getNumeroCarreta() << " guardada en la pila 2" << endl;
+    }
+    return true;
+}
+
+void restarTiempo() {
+    Caja* aux = listaDoble->cajaInicio;
+    while (aux != nullptr) {
+        if (aux->getTiempoRestante()!=0) {
+            aux->setTiempoRestante(aux->getTiempoRestante()-1);
+        }
+        else {
+            aux->setEstadoLibre(true);
+        }
+        aux = aux->siguiente;
+    }
+   
 }

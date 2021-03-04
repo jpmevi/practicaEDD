@@ -11,5 +11,6 @@ public:
     void borrar(int id);
     int empty();
     bool comprobarNumero(int);
+     
 };
 

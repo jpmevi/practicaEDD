@@ -13,12 +13,12 @@ void Pila::push(Carreta* carreta) {
     if (carretaInicio == nullptr && carretaFinal == nullptr) {
         carretaFinal = carreta;
         carretaInicio = carreta;
-        cout << "Carreta ingresada con numero: " << carreta->getNumeroCarreta() << endl;
+       
     }
     else {
         carreta->siguiente = carretaInicio;
         carretaInicio = carreta;
-        cout << "Carreta ingresada con numero: " << carreta->getNumeroCarreta() << endl;
+       
     }
 }
 

@@ -5,6 +5,7 @@ class Caja
 private:
     int numeroCaja;
     float tiempoServicio;
+    float tiempoRestante;
     bool estadoLibre;
     int codigoCliente;
     int codigoCarreta;
@@ -12,11 +13,17 @@ private:
 public:
     Caja* siguiente;
     Caja* anterior;
-    Caja(int, float, bool, int, int);
+    Caja(int, float,float, bool, int, int);
     int getNumeroCaja();
     float getTiempoServicio();
+    float getTiempoRestante();
     bool getEstadoLibre();
+    void setEstadoLibre(bool);
+    void setCodigoCliente(int);
+    void setCodigoCarreta(int);
     int getCodigoCliente();
     int getCodigoCarreta();
+    void vaciarCaja();
+    void setTiempoRestante(float);
 };
 

@@ -42,7 +42,7 @@ void ListaDoble::push(Caja* caja) {
         }
     }
     this->totalElementos = this->totalElementos + 1;
-    cout << "Caja ingresada con numero: " << caja->getNumeroCaja() << endl;
+   
 }
 
 void ListaDoble::borrar(int id) {
@@ -104,3 +104,4 @@ bool ListaDoble::comprobarNumero(int numero) {
     }
     return false;
 }
+

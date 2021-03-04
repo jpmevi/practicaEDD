@@ -22,7 +22,13 @@ void Cola::push(Cliente* cliente) {
 }
 
 Cliente* Cola::pop() {
- if (objetoInicio != nullptr && objetoFinal != nullptr) {
+    if (objetoInicio==objetoFinal) {
+        Cliente* aux = objetoInicio;
+        objetoInicio = nullptr;
+        objetoFinal = nullptr;
+        return aux;
+    }
+ else if (objetoInicio != nullptr && objetoFinal != nullptr) {
         Cliente* aux = objetoInicio;
         objetoInicio = objetoInicio->siguiente;
         return aux;
@@ -33,7 +39,7 @@ Cliente* Cola::pop() {
 }
 
 bool Cola::empty() {
-    if (objetoInicio == nullptr || objetoFinal == nullptr) {
+    if (objetoInicio == nullptr && objetoFinal == nullptr) {
         return true;
     }
     return false;
@@ -41,7 +47,7 @@ bool Cola::empty() {
 
 bool Cola::comprobarNumero(int numero) {
     Cliente* aux = objetoInicio;
-    while (aux != nullptr) {
+    while (aux->siguiente!= nullptr) {
         if (aux->getNumeroCliente() == numero) {
             return true;
         }
