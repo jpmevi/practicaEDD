@@ -11,12 +11,12 @@ void Cola::push(Cliente* cliente) {
     if (objetoInicio == nullptr && objetoFinal == nullptr) {
         objetoInicio = cliente;
         objetoFinal = cliente;
-        cout << "Cliente ingresado con numero: "<<cliente->getNumeroCliente() << endl;
+        
     }
     else {
         objetoFinal->siguiente = cliente;
         objetoFinal = cliente;
-        cout << "Cliente ingresado con numero: " << cliente->getNumeroCliente() << endl;
+        
     }
 
 }

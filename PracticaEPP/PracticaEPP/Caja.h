@@ -6,15 +6,17 @@ private:
     int numeroCaja;
     float tiempoServicio;
     bool estadoLibre;
-    std::string codigoCliente;
+    int codigoCliente;
     int codigoCarreta;
 
 public:
-    Caja(int, float, bool, std::string, int);
+    Caja* siguiente;
+    Caja* anterior;
+    Caja(int, float, bool, int, int);
     int getNumeroCaja();
     float getTiempoServicio();
     bool getEstadoLibre();
-    std::string getCodigoCliente();
+    int getCodigoCliente();
     int getCodigoCarreta();
 };
 

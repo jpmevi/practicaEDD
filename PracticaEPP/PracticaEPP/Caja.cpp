@@ -3,7 +3,7 @@
 using namespace std;
 
 
-Caja::Caja(int numeroCaja, float tiempoServicio, bool estadoLibre, string codigoCliente, int codigoCarreta)
+Caja::Caja(int numeroCaja, float tiempoServicio, bool estadoLibre, int codigoCliente, int codigoCarreta)
 {
     this->numeroCaja = numeroCaja;
     this->tiempoServicio = tiempoServicio;
@@ -24,7 +24,7 @@ bool Caja::getEstadoLibre()
 {
     return estadoLibre;
 }
-string Caja::getCodigoCliente()
+int Caja::getCodigoCliente()
 {
     return codigoCliente;
 }
