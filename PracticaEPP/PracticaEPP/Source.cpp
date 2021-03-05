@@ -258,7 +258,6 @@ void asignarCarreta(int cantcola) {
         }
     }
     file << "nd3 [label = \"" + listaCircularstring + "\" , height = 4]; \n";
-    file << "nd3:"+ std::to_string(inicio)+"->nd3 ; \n";
     file << "}\n";
     file << "}\n";
     file.close();

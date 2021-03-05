@@ -19,20 +19,20 @@ node [shape=record, width=.1, height=.1];
 style=filled;
 color=lightgrey;
 label = " ColaPagos ";
-nd4 [label = "12 | 11 | 14 | 14" , height = 4]; 
+nd4 [label = "12 | 11 | 14 | 12" , height = 4]; 
 }
 subgraph cluster_1 {
 node [shape=record, width=.1, height=.1];
 style=filled;
 color=lightgrey;
 label = " Cola clientes ";
-nd2 [label = " 8 | 5 | 6 | 7  " , height = 4]; 
+nd2 [label = " 6 | 5 | 7 | 8  " , height = 4]; 
 }
 subgraph cluster_2 {
 node [shape=record, width=.1, height=.1];
 style=filled;
 color=lightgrey;
 label = " Lista Compras ";
-nd3 [label = "8 | 5 | 6 | 7" , height = 4]; 
+nd3 [label = "6 | 5 | 7 | 8" , height = 4]; 
 }
 }
