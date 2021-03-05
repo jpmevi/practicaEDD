@@ -377,7 +377,7 @@ Cliente* sacarClienteDeCompras() {
           
     }
     else {
-        cout << "El numero que salio no existe en la lista"<< endl;
+        cout << "El numero "<<random<<" no existe en la lista o no coincide con el id de un cliente "<< endl;
         return nullptr;
     }
     
