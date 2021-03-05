@@ -143,6 +143,7 @@
     <ClCompile Include="Carreta.cpp" />
     <ClCompile Include="Cliente.cpp" />
     <ClCompile Include="Cola.cpp" />
+    <ClCompile Include="Graphviz.cpp" />
     <ClCompile Include="ListaCircular.cpp" />
     <ClCompile Include="ListaDoble.cpp" />
     <ClCompile Include="Pila.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Carreta.h" />
     <ClInclude Include="Cliente.h" />
     <ClInclude Include="Cola.h" />
+    <ClInclude Include="Graphviz.h" />
     <ClInclude Include="ListaCircular.h" />
     <ClInclude Include="ListaDoble.h" />
     <ClInclude Include="Pila.h" />

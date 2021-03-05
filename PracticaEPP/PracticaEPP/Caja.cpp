@@ -58,5 +58,5 @@ void Caja::vaciarCaja() {
     this->setEstadoLibre(true);
     this->setCodigoCliente(0);
    this->setCodigoCarreta(0);
-   this->setTiempoRestante(this->tiempoServicio);
+   this->setTiempoRestante(getTiempoServicio());
 }

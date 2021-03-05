@@ -14,6 +14,7 @@
 #include <ctime>
 #include <thread>
 #include <Windows.h>
+#include "Graphviz.h"
 using namespace std;
 
 void crearCliente(int cantClientes, int clientesTotales);
@@ -32,11 +33,20 @@ Cola* cola = new Cola();
 Cola* colaPagos = new Cola();
 Pila* pila1 = new Pila();
 Pila* pila2 = new Pila();
+Graphviz *grafo = new Graphviz();
 ListaCircular *listaCircular = new ListaCircular();
 ListaDoble* listaDoble = new ListaDoble();
+ofstream file("archivo.dot");
+std::string colaPagosString = "";
+std::string pilastring = "";
+std::string pilastring2 = "";
+std::string colastring = "";
+std::string listaCircularstring = "";
 
 int main() {
     
+    file << "digraph G {\n";
+    file << " rankdir = TB;\n";    
     int clienteColaCarreta, carretas, clientesComprando, clientesColaPagos, cajas, contador = 1, clientesTotales;
     cout << "Cuantos clientes estan en la cola de carretas?" << endl;
     cin >> clienteColaCarreta;
@@ -52,7 +62,6 @@ int main() {
     clientesTotales = clienteColaCarreta;
     ingresarCarretas(carretas);
     asignarCajas(cajas);
-   
     asignarClientesComprando(clientesComprando, clienteColaCarreta, carretas);
     asignarClientesPagando(clientesColaPagos, clientesComprando, clienteColaCarreta, carretas);
     while (true) { 
@@ -84,6 +93,7 @@ int main() {
     contador = contador + 1;
     clientesTotales = clientesTotales + clienteColaCarreta;
     cout << "######### Paso " << contador << " #########" << endl;
+    
     }
     _getch();
     return 0;
@@ -92,10 +102,16 @@ int main() {
 
 
 void crearCliente(int cantClientes,int clientesTotales) {
+    file << "subgraph cluster_1 {\n";
+    file << "node [shape=record, width=.1, height=.1];\n";
+    file << "style=filled;\n";
+    file << "color=lightgrey;\n";
+    file << "label = \" Cola clientes \";\n";
+   
     Cliente* cliente;
     for (int i = 0; i < cantClientes; i++)
     {
-        int random = (rand() % cantClientes+clientesTotales) + 1+clientesTotales;
+        int random = (rand() % cantClientes) + 1+clientesTotales;
         if (cola->empty()) {
              cliente = new Cliente(random, nullptr);
         }
@@ -103,16 +119,30 @@ void crearCliente(int cantClientes,int clientesTotales) {
             
             while (cola->comprobarNumero(random))
             {
-                random = (rand() % cantClientes + clientesTotales) + 1+clientesTotales;
+                random = (rand() % cantClientes ) + 1+clientesTotales;
             }
              cliente = new Cliente(random, nullptr);
         }
         cola->push(cliente);
-        
+        if (i + 1 == cantClientes) {
+            colastring = colastring + std::to_string(cliente->getNumeroCliente());
+        }
+        else {
+            colastring = colastring+ std::to_string(cliente->getNumeroCliente()) + " | " ;
+        }
     }
+    file << "nd2 [label = \" " + colastring + "  \" , height = 4]; \n";
+    file << "}\n";
 }
 
 void ingresarCarretas(int carretas) {
+    
+    file << "subgraph cluster_0 {\n";
+    file << "node [shape=record, width=.1, height=.1];\n";
+    file << "style=filled;\n";
+    file << "color=lightgrey;\n";
+    file << "label = \" Pilas Carretas \";\n";
+    
     Carreta* carreta;
     for (int i = 0; i < carretas; i++)
     {
@@ -129,8 +159,15 @@ void ingresarCarretas(int carretas) {
             carreta = new Carreta(random);
         }
         pila1->push(carreta);
+        if (i + 1 == carretas) {
+            pilastring = pilastring + std::to_string(random);
+        }
+        else {
+            pilastring = std::to_string(random) + " | " + pilastring;
+        }
+                            
     }
-    for (int i = 0; i < carretas; i++)
+     for (int i = 0; i < carretas; i++)
     {
         int random = (rand() % carretas) + 1 + carretas;
         if (pila2->empty()) {
@@ -145,7 +182,18 @@ void ingresarCarretas(int carretas) {
             carreta = new Carreta(random);
         }
         pila2->push(carreta);
+        if (i+1==carretas) {
+            pilastring2 = pilastring2 +std::to_string(random) ;
+        }
+        else {
+            pilastring2 = std::to_string(random) + " | " + pilastring2;
+        }
+       
     }
+    file << "nd0 [label = \" " + pilastring + "  \" , height = 4]; \n";
+    file << "nd1 [label = \" " + pilastring2 + "  \" , height = 4]; \n";
+    file << "}\n";
+    
 }
 
 Carreta* sacarCarreta() {
@@ -164,6 +212,14 @@ Carreta* sacarCarreta() {
 }
 
 void asignarCarreta(int cantcola) {
+   
+    
+    int inicio, fin;
+    file << "subgraph cluster_2 {\n";
+    file << "node [shape=record, width=.1, height=.1];\n";
+    file << "style=filled;\n";
+    file << "color=lightgrey;\n";
+    file << "label = \" Lista Compras \";\n";
     for (int i = 0; i < cantcola; i++)
     {
        
@@ -176,14 +232,37 @@ void asignarCarreta(int cantcola) {
             cliente->setCarreta(carreta);
             cout << "El cliente #" << cliente->getNumeroCliente() << " Retiro la carreta #" << cliente->getCarreta()->getNumeroCarreta() << endl;
             listaCircular->push(cliente);
+            if (i == 0) {
+                inicio = cliente->getNumeroCliente();
+            }
+            if (i + 1 == cantcola) {
+                listaCircularstring = listaCircularstring + std::to_string(cliente->getNumeroCliente());
+                fin = cliente->getNumeroCliente();
+            }
+            else {
+                listaCircularstring = listaCircularstring +std::to_string(cliente->getNumeroCliente()) + " | ";
+            }
             int random = (rand() % 100) + 1;
             if (listaCircular->comprobarNumero(random)) {
                 Cliente* clientePagos = listaCircular->borrar(random);
                 colaPagos->push(clientePagos);
                 cout << "El cliente #" << cliente->getNumeroCliente() << " Esta comprando con la carreta #" << cliente->getCarreta()->getNumeroCarreta() << endl;
+               
+                if (i + 1 == cantcola) {
+                    colaPagosString = colaPagosString + std::to_string(cliente->getNumeroCliente());
+                }
+                else {
+                    colaPagosString = colaPagosString + std::to_string(cliente->getNumeroCliente()) + " | ";
+                }
             }
         }
     }
+    file << "nd3 [label = \"" + listaCircularstring + "\" , height = 4]; \n";
+    file << "nd3:"+ std::to_string(inicio)+"->nd3 ; \n";
+    file << "}\n";
+    file << "}\n";
+    file.close();
+    system("dot -Tpng archivo.dot -o imagen.png");
 }
 
 void asignarClientesComprando(int cantComprando, int cantClientes,int cantCarretas) {
@@ -212,6 +291,14 @@ for (int i = 0; i < cantComprando; i++)
 
 void asignarClientesPagando(int cantPagando, int cantComprando, int cantClientes, int cantCarretas) {
     Cliente* cliente;
+   
+    file << "subgraph cluster_3 {\n";
+    file << "node [shape=record, width=.1, height=.1];\n";
+    file << "style=filled;\n";
+    file << "color=lightgrey;\n";
+    file << "label = \" ColaPagos \";\n";
+    
+    
     for (int i = 0; i < cantPagando; i++)
     {
 
@@ -229,15 +316,31 @@ void asignarClientesPagando(int cantPagando, int cantComprando, int cantClientes
             cliente = new Cliente(random, carretaObj);
         }
         colaPagos->push(cliente);
+        if (i + 1 == cantPagando) {
+            colaPagosString = colaPagosString + std::to_string(cliente->getNumeroCliente());
+        }
+        else {
+            colaPagosString = colaPagosString + std::to_string(cliente->getNumeroCliente()) + " | ";
+        }
         cout << "Cliente ingresado en la cola de pagos con #" << cliente->getNumeroCliente() << endl;
         Caja* caja2 = asignarClienteACaja();
         if (caja2 != nullptr) {
             atenderEnCaja(caja2);
         }
+       
     }
+    file << "nd4 [label = \"" + colaPagosString + "\" , height = 4]; \n";
+    file << "}\n";
+    
 }
 void asignarCajas(int cantCajas) {
     Caja* caja;
+    std::string listaCajasString = "";
+    file << "subgraph cluster_5 {\n";
+    file << "node [shape=record, width=.1, height=1];\n";
+    file << "style=filled;\n";
+    file << "color=lightgrey;\n";
+    file << "label = \" ListaCajas \";\n";
     for (int i = 0; i < cantCajas; i++)
     {
         int random = (rand() % cantCajas) + 1;
@@ -254,7 +357,12 @@ void asignarCajas(int cantCajas) {
             caja = new Caja(random, tiempo,tiempo, true, 0,0);
         }
         listaDoble->push(caja);
+        listaCajasString.append("\"" "Caja: "+ std::to_string(caja->getNumeroCaja()) + "Carreta: " + std::to_string(caja->getCodigoCarreta()) + "disponible: " + std::to_string(caja->getEstadoLibre()) + "\"");
+        
+        
     }
+    file << listaCajasString;
+    file << "}\n";
 }
 
 Cliente* sacarClienteDeCompras() {

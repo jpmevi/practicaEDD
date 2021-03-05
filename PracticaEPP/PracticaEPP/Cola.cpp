@@ -47,7 +47,7 @@ bool Cola::empty() {
 
 bool Cola::comprobarNumero(int numero) {
     Cliente* aux = objetoInicio;
-    while (aux->siguiente!= nullptr) {
+    while (aux!= nullptr) {
         if (aux->getNumeroCliente() == numero) {
             return true;
         }

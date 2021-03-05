@@ -1,6 +1,6 @@
 ﻿  Source.cpp
-C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(246,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(246,37): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(254,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(254,37): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(349,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(349,37): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(357,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\PracticaEPP\Source.cpp(357,37): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
   PracticaEPP.vcxproj -> C:\Users\meza4\Desktop\practica1EDD JPMV 201930268\practicaEDD\PracticaEPP\x64\Debug\PracticaEPP.exe

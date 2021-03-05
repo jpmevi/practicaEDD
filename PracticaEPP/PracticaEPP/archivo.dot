@@ -1,0 +1,39 @@
+digraph G {
+ rankdir = TB;
+subgraph cluster_0 {
+node [shape=record, width=.1, height=.1];
+style=filled;
+color=lightgrey;
+label = " Pilas Carretas ";
+nd0 [label = " 2 | 1  " , height = 4]; 
+nd1 [label = " 3 | 4  " , height = 4]; 
+}
+subgraph cluster_5 {
+node [shape=record, width=.1, height=1];
+style=filled;
+color=lightgrey;
+label = " ListaCajas ";
+"Caja: 1Carreta: 0disponible: 1"}
+subgraph cluster_3 {
+node [shape=record, width=.1, height=.1];
+style=filled;
+color=lightgrey;
+label = " ColaPagos ";
+nd4 [label = "12" , height = 4]; 
+}
+subgraph cluster_1 {
+node [shape=record, width=.1, height=.1];
+style=filled;
+color=lightgrey;
+label = " Cola clientes ";
+nd2 [label = " 16 | 12 | 18 | 13 | 17 | 15 | 14 | 19 | 20 | 11  " , height = 4]; 
+}
+subgraph cluster_2 {
+node [shape=record, width=.1, height=.1];
+style=filled;
+color=lightgrey;
+label = " Lista Compras ";
+nd3 [label = "16 | 12 | 18 | 13 | " , height = 4]; 
+nd3:16->nd3 ; 
+}
+}
